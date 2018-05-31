@@ -34,9 +34,14 @@ fi
 to_remove=`git status | grep "deleted" | awk '{print $3}'`
 
 if [ -n "$to_remove" ]; then
-    git rm --ignore-unmatch $to_remove
+    git rm $to_remove
 fi
 
-git commit -m "Automated Jenkins commit"
+# different commit messages for manual and scheduled builds
+if [ $BUILD_USER ]; then
+    git commit -m "Triggered by $BUILD_USER"
+else
+    git commit -m "Scheduled Jenkins commit"
+fi
 
-git push -q -u origin master
+git push origin master
