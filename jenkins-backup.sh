@@ -38,10 +38,10 @@ if [ -n "$to_remove" ]; then
 fi
 
 # different commit messages for manual and scheduled builds
-if [ $BUILD_USER ]; then
-    git commit -m "Triggered by $BUILD_USER"
-else
+if [[ -z "${BUILD_USER}" ]]; then
     git commit -m "Scheduled Jenkins commit"
+else
+    git commit -m "Triggered by $BUILD_USER"
 fi
 
 git push origin master
