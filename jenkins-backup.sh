@@ -31,7 +31,7 @@ if [ -d users ]; then
 fi
 
 # mark as deleted anything that's been, well, deleted
-to_remove=`git status | grep "deleted" | awk '{print $3}'`
+to_remove=`git status | grep "deleted" | awk '{print $2}'`
 
 if [ -n "$to_remove" ]; then
     git rm $to_remove
